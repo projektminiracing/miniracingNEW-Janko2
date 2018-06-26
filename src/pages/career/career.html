@@ -1,0 +1,197 @@
+<!--
+  Generated template for the CareerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>My career</ion-title>
+    <ion-buttons end>
+      <button (click)="alert()" ion-button icon-end large>
+        {{upgradesLeft}}
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>My vehicle</h3>
+  <ion-list>
+    <ion-item text-wrap [ngClass]="{active: isGroupShown(0)}">
+      <h3 (click)="toggleGroup(0)">
+        <ion-icon color="success" item-right [name]="isGroupShown(0) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+        Basic information
+      </h3>
+      <div *ngIf="isGroupShown(0)">
+        <ion-item>Manufacturer: {{vehicle?.manufacturer}}</ion-item>
+        <ion-item>Color: {{vehicle?.color}}</ion-item>
+        <ion-item>Weight: {{vehicle?.weight}}</ion-item>
+        <ion-item>Drive wheel: {{vehicle?.driveWheel}}</ion-item>
+      </div>
+    </ion-item>
+    <ion-item text-wrap [ngClass]="{active: isGroupShown(1)}">
+      <h3 (click)="toggleGroup(1)" >
+        <ion-icon color="success" item-right [name]="isGroupShown(1) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+        Engine
+      </h3>
+      <div *ngIf="isGroupShown(1)">
+        <ion-item>
+          Horsepower:
+          {{vehicle?.engine?.horsePower}}
+          <button (click)="upgrade('vehicle', 'engineHS', 5)" ion-button item-right>
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item>
+          Battery consumption: {{vehicle?.engine?.batteryConsumption}}
+          <button (click)="upgrade('vehicle', 'engineBC', -0.2)" ion-button item-right>
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
+      </div>
+    </ion-item>
+    <ion-item text-wrap [ngClass]="{active: isGroupShown(2)}">
+      <h3 (click)="toggleGroup(2)">
+        <ion-icon color="success" item-right [name]="isGroupShown(2) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+        Details
+      </h3>
+      <div *ngIf="isGroupShown(2)">
+        <ion-item>Battery left: {{vehicle?.batteryLeft}}</ion-item>
+        <ion-item>Charge time: {{vehicle?.chargeTime}}
+          <button (click)="upgrade('vehicle', 'chargeTime', -0.25)" ion-button item-right>
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item>Acceleration: {{vehicle?.acceleration}}
+          <button (click)="upgrade('vehicle', 'acceleration', 0.2)" ion-button item-right>
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item>Top speed: {{vehicle?.topSpeed}}
+          <button (click)="upgrade('vehicle', 'topSpeed', 5)" ion-button item-right>
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-item>
+      </div>
+    </ion-item>
+  </ion-list>
+  
+  <h3>My driver</h3>
+  <ion-list>
+    <ion-item text-wrap [ngClass]="{active: isGroupShown(5)}">
+      <h3 (click)="toggleGroup(5)">
+        <ion-icon color="success" item-right [name]="isGroupShown(5) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+        Personal
+      </h3>
+      <div *ngIf="isGroupShown(5)">
+        <ion-list>
+            <ion-item>Name: {{driver?.name}}</ion-item>
+            <ion-item>Age: {{driver?.age}}</ion-item>
+            <ion-item>Sex: {{driver?.sex}}</ion-item>
+            <ion-item>Rank: {{driver?.rank}}</ion-item>
+            <ion-item>Number of wins: {{driver?.number_of_wins}}</ion-item>
+        </ion-list>
+      </div>
+    </ion-item>
+    <ion-item text-wrap [ngClass]="{active: isGroupShown(6)}">
+      <h3 (click)="toggleGroup(6)">
+        <ion-icon color="success" item-right [name]="isGroupShown(6) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+        Physical
+      </h3>
+      <div *ngIf="isGroupShown(6)">
+        <ion-list>
+            <ion-item>Fitness: {{driver?.fitness}}
+              <button (click)="upgrade('driver', 'fitness', 1)" ion-button item-right>
+                <ion-icon *ngIf="!isRecommended('fitness')" name="add" color="danger"></ion-icon>
+                <ion-icon *ngIf="isRecommended('fitness')" name="add"></ion-icon>
+              </button>
+            </ion-item>
+            <ion-item>Injuries: {{driver?.injuries}}
+              <button (click)="upgrade('driver', 'injuries', 1)" ion-button item-right>
+                <ion-icon *ngIf="!isRecommended('injuries')" name="add" color="danger"></ion-icon>
+                <ion-icon *ngIf="isRecommended('injuries')" name="add"></ion-icon>
+              </button>
+            </ion-item>
+        </ion-list>
+      </div>
+    </ion-item>
+    <ion-item text-wrap [ngClass]="{active: isGroupShown(7)}">
+      <h3 (click)="toggleGroup(7)">
+        <ion-icon color="success" item-right [name]="isGroupShown(7) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+        Mental
+      </h3>
+      <div *ngIf="isGroupShown(7)">
+        <ion-list>
+          <ion-item>Bad weather: {{driver?.bad_weather}}
+            <button (click)="upgrade('driver', 'bad_weather', 1)" ion-button item-right>
+              <ion-icon *ngIf="!isRecommended('bad_weather')" name="add" color="danger"></ion-icon>
+              <ion-icon *ngIf="isRecommended('bad_weather')" name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>Reaction time: {{driver?.reaction_time}}
+            <button (click)="upgrade('driver', 'reaction_time', 1)" ion-button item-right>
+              <ion-icon *ngIf="!isRecommended('speed')" name="add" color="danger"></ion-icon>
+              <ion-icon *ngIf="isRecommended('speed')" name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>Patience: {{driver?.patience}}
+            <button (click)="upgrade('driver', 'patience', 1)" ion-button item-right>
+              <ion-icon *ngIf="!isRecommended('patience')" name="add" color="danger"></ion-icon>
+              <ion-icon *ngIf="isRecommended('patience')" name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>Aggresiveness: {{driver?.aggresiveness}}
+            <button (click)="upgrade('driver', 'aggresiveness', 1)" ion-button item-right>
+              <ion-icon *ngIf="!isRecommended('aggresiveness')" name="add" color="danger"></ion-icon>
+              <ion-icon *ngIf="isRecommended('aggresiveness')" name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>Will: {{driver?.will}}
+            <button (click)="upgrade('driver', 'will', 1)" ion-button item-right>
+              <ion-icon *ngIf="!isRecommended('will')" name="add" color="danger"></ion-icon>
+              <ion-icon *ngIf="isRecommended('will')" name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>Intelligence: {{driver?.intelligence}}
+            <button (click)="upgrade('driver', 'intelligence', 1)" ion-button item-right>
+              <ion-icon *ngIf="!isRecommended('intelligence')" name="add" color="danger"></ion-icon>
+              <ion-icon *ngIf="isRecommended('intelligence')" name="add"></ion-icon>
+            </button>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-item>
+    <ion-item text-wrap [ngClass]="{active: isGroupShown(8)}">
+      <h3 (click)="toggleGroup(8)">
+        <ion-icon color="success" item-right [name]="isGroupShown(8) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+        Skills
+      </h3>
+      <div *ngIf="isGroupShown(8)">
+        <ion-list>
+          <ion-item>Speed: {{driver?.speed}}
+            <button (click)="upgrade('driver', 'speed', 1)" ion-button item-right>
+              <ion-icon *ngIf="!isRecommended('speed')" name="add" color="danger"></ion-icon>
+              <ion-icon *ngIf="isRecommended('speed')" name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>Overtaking: {{driver?.overtaking}}
+            <button (click)="upgrade('driver', 'overtaking', 1)" ion-button item-right>
+              <ion-icon *ngIf="!isRecommended('overtaking')" name="add" color="danger"></ion-icon>
+              <ion-icon *ngIf="isRecommended('overtaking')" name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>Blocking: {{driver?.blocking}}
+            <button (click)="upgrade('driver', 'blocking', 1)" ion-button item-right>
+              <ion-icon *ngIf="!isRecommended('blocking')" name="add" color="danger"></ion-icon>
+              <ion-icon *ngIf="isRecommended('blocking')" name="add"></ion-icon>
+            </button>
+          </ion-item>
+          <ion-item>Overall: {{driver?.overall}}</ion-item>
+        </ion-list>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

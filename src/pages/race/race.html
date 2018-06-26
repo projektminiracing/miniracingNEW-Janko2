@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Race</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="bg">
+  <ion-item>
+    <ion-label>Choose track</ion-label>
+    <ion-select [(ngModel)]="selectedTrack">
+      <ion-option *ngFor="let t of tracks" [value]="t._id">{{t.location}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <button (click)="SimulateRace()" ion-button round type="submit" block>Race</button>
+    
+  <ion-item inset *ngIf="display_results">
+    <ion-list *ngFor="let key of  [0,1,2,3,4]">
+      <h3 *ngIf="key == user_driver_index">
+        {{key+1}}. {{section_result[0][key]}} -- {{section_result[1][key]}}
+      </h3>
+      <p *ngIf="key != user_driver_index">
+        {{key+1}}. {{section_result[0][key]}} -- {{section_result[1][key]}}
+      </p>
+    </ion-list>
+  </ion-item>
+  <ion-item *ngIf="display_results">
+    <h3>Final results:</h3><br>
+    <ion-list *ngFor="let i of [0,1,2,3,4]">
+      <p>
+        {{i+1}}. {{summed_results[0][i]}} -- {{summed_results[1][i]}}
+        <ion-badge color="secondary" *ngIf="summed_results[3][i] >= 0">{{summed_results[3][i]}}</ion-badge>
+        <ion-badge color="warning" *ngIf="summed_results[3][i] < 0">{{summed_results[3][i]}}</ion-badge>
+      </p>
+      
+    </ion-list>
+  </ion-item>
+</ion-content>

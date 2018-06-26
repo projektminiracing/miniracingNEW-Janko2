@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Profile</ion-title>
+    <ion-buttons end>
+      <button (click)="logout()" ion-button icon-only color="royal">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-fab right bottom #fab>
+    <button ion-fab color="danger"><ion-icon name="md-share"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab color="primary" (click)="share('facebook', fab)"><ion-icon name="logo-facebook"></ion-icon></button>
+      <button ion-fab color="secondary" (click)="share('twitter', fab)"><ion-icon name="logo-twitter"></ion-icon></button>
+      <button ion-fab color="secondary" (click)="share('email', fab)"><ion-icon name="mail"></ion-icon></button>
+      <button ion-fab color="secondary" (click)="share('sms', fab)"><ion-icon name="phone"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+
+ 
+  <img id="profile_picture_img" class="card-img" max-height="500" max-width="500" src="{{photoHost+user_profile.photo_path}}" *ngIf="!base64Image">
+  <img id="profile_picture_img" class="card-img" max-height="500" max-width="500" [src]="base64Image" *ngIf="base64Image">
+  <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+  <button (click)="updateProfilePicture()" ion-button icon-only color="royal">
+    <ion-icon name="md-cloud-upload"></ion-icon>
+  </button>
+  <button (click)="takePicture()" ion-button icon-only color="royal">
+      <ion-icon name="camera"></ion-icon>
+  </button>
+        
+  <form (ngSubmit)="updateUser()">
+    <ion-item>
+      <ion-label stacked>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="user_profile.username" name="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input type="email" [(ngModel)]="user_profile.email" name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>First name</ion-label>
+      <ion-input type="text" [(ngModel)]="user_profile.firstname" name="firstname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Last name</ion-label>
+      <ion-input type="text" [(ngModel)]="user_profile.lastname" name="lastname"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Birthday</ion-label>
+      <ion-input type="date" [(ngModel)]="user_profile.birthday" name="birthday" displayFormat="MMM DD, YYYY HH:mm"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Update profile</button>
+  </form>
+</ion-content>
